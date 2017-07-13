@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Basic Stats Remained Example &#8212; URLVoid DXL Service 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="dxlurlvoidservice package" href="dxlurlvoidservice.html" />
+    <link rel="prev" title="Basic Host Scan Example" href="basichostscanexample.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dxlurlvoidservice.html" title="dxlurlvoidservice package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="basichostscanexample.html" title="Basic Host Scan Example"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">URLVoid DXL Service 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="basic-stats-remained-example">
+<h1>Basic Stats Remained Example<a class="headerlink" href="#basic-stats-remained-example" title="Permalink to this headline">¶</a></h1>
+<p>This sample retrieves and displays the number of queries that remain for the account associated with the
+URLVoid API key by invoking the URLVoid API service via DXL.</p>
+<dl class="docutils">
+<dt>For more information see:</dt>
+<dd><a class="reference external" href="http://api.urlvoid.com/dashboard/#usage">http://api.urlvoid.com/dashboard/#usage</a></dd>
+</dl>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The samples configuration step has been completed (see <a class="reference internal" href="sampleconfig.html"><span class="doc">Samples Configuration</span></a>)</li>
+<li>The URLVoid API DXL service is running (see <a class="reference internal" href="running.html"><span class="doc">Running Service</span></a>)</li>
+</ul>
+</div>
+<div class="section" id="running">
+<h2>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h2>
+<p>To run this sample execute the <code class="docutils literal"><span class="pre">sample/basic/basic_stats_remained.py</span></code> script as follows:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">sample</span><span class="o">/</span><span class="n">basic</span><span class="o">/</span><span class="n">basic_stats_remained</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The output should appear similar to the following:</p>
+<blockquote>
+<div><div class="highlight-xml"><div class="highlight"><pre><span></span>Response for URLVoid stats remained:
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><span class="nt">&lt;response&gt;</span>
+    <span class="nt">&lt;queriesRemained&gt;</span>956<span class="nt">&lt;/queriesRemained&gt;</span>
+    <span class="nt">&lt;page_load&gt;</span>0.00<span class="nt">&lt;/page_load&gt;</span>
+<span class="nt">&lt;/response&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The received results are displayed.</p>
+</div>
+<div class="section" id="details">
+<h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
+<p>The majority of the sample code is shown below:</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Create the client</span>
+<span class="k">with</span> <span class="n">DxlClient</span><span class="p">(</span><span class="n">config</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+
+    <span class="c1"># Connect to the fabric</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Connected to DXL fabric.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Invoke &#39;stats remained&#39; method</span>
+    <span class="n">request_topic</span> <span class="o">=</span> <span class="s2">&quot;/opendxl-urlvoid/service/urlvapi/stats/remained&quot;</span>
+
+    <span class="n">req</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">request_topic</span><span class="p">)</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sync_request</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">message_type</span> <span class="o">!=</span> <span class="n">Message</span><span class="o">.</span><span class="n">MESSAGE_TYPE_ERROR</span><span class="p">:</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">MessageUtils</span><span class="o">.</span><span class="n">decode_payload</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">dom</span><span class="o">.</span><span class="n">minidom</span><span class="o">.</span><span class="n">parseString</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s2">&quot;Response for URLVoid stats remained:&quot;</span>
+        <span class="k">print</span> <span class="n">xml</span><span class="o">.</span><span class="n">toprettyxml</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="s1">&#39;    &#39;</span><span class="p">,</span> <span class="n">newl</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s2">&quot;Error invoking service with topic &#39;{0}&#39;: {1} ({2})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">request_topic</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">error_message</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">error_code</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>After connecting to the DXL fabric, a <cite>request message</cite> is created with a topic that targets the &#8220;stats remained&#8221; method
+of the URLVoid API DXL service.</p>
+<p>The final step is to perform a <cite>synchronous request</cite> via the DXL fabric. If the <cite>response message</cite> is not an error
+its contents are displayed.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Basic Stats Remained Example</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#running">Running</a></li>
+<li><a class="reference internal" href="#details">Details</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="basichostscanexample.html"
+                        title="previous chapter">Basic Host Scan Example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dxlurlvoidservice.html"
+                        title="next chapter">dxlurlvoidservice package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/basicstatsremainedexample.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dxlurlvoidservice.html" title="dxlurlvoidservice package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="basichostscanexample.html" title="Basic Host Scan Example"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">URLVoid DXL Service 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2017, McAfee LLC.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dxlurlvoidservice.app module &#8212; URLVoid DXL Service 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="dxlurlvoidservice.requesthandlers module" href="dxlurlvoidservice.requesthandlers.html" />
+    <link rel="prev" title="dxlurlvoidservice package" href="dxlurlvoidservice.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dxlurlvoidservice.requesthandlers.html" title="dxlurlvoidservice.requesthandlers module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="dxlurlvoidservice.html" title="dxlurlvoidservice package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">URLVoid DXL Service 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="dxlurlvoidservice.html" accesskey="U">dxlurlvoidservice package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-dxlurlvoidservice.app">
+<span id="dxlurlvoidservice-app-module"></span><h1>dxlurlvoidservice.app module<a class="headerlink" href="#module-dxlurlvoidservice.app" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService">
+<em class="property">class </em><code class="descclassname">dxlurlvoidservice.app.</code><code class="descname">UrlVoidApiService</code><span class="sig-paren">(</span><em>config_dir</em><span class="sig-paren">)</span><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">dxlbootstrap.app.Application</span></code></p>
+<p>The &#8220;URLVoid DXL Service&#8221; application class.</p>
+<p>Constructor parameters:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config_dir</strong> &#8211; The location of the configuration files for the
+application</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.CMD_HOST_INFO">
+<code class="descname">CMD_HOST_INFO</code><em class="property"> = 'host/info'</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.CMD_HOST_INFO" title="Permalink to this definition">¶</a></dt>
+<dd><p>The &#8220;host info&#8221; command</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.CMD_HOST_RESCAN">
+<code class="descname">CMD_HOST_RESCAN</code><em class="property"> = 'host/rescan'</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.CMD_HOST_RESCAN" title="Permalink to this definition">¶</a></dt>
+<dd><p>The &#8220;host rescan&#8221; command</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.CMD_HOST_SCAN">
+<code class="descname">CMD_HOST_SCAN</code><em class="property"> = 'host/scan'</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.CMD_HOST_SCAN" title="Permalink to this definition">¶</a></dt>
+<dd><p>The &#8220;host scan&#8221; command</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.CMD_STATS_REMAINED">
+<code class="descname">CMD_STATS_REMAINED</code><em class="property"> = 'stats/remained'</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.CMD_STATS_REMAINED" title="Permalink to this definition">¶</a></dt>
+<dd><p>The &#8220;stats remained&#8221; command</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.GENERAL_API_KEY_CONFIG_PROP">
+<code class="descname">GENERAL_API_KEY_CONFIG_PROP</code><em class="property"> = 'apiKey'</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.GENERAL_API_KEY_CONFIG_PROP" title="Permalink to this definition">¶</a></dt>
+<dd><p>The property used to specify the URLVoid API Key in the application
+configuration file</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.GENERAL_CONFIG_SECTION">
+<code class="descname">GENERAL_CONFIG_SECTION</code><em class="property"> = 'General'</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.GENERAL_CONFIG_SECTION" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the &#8220;General&#8221; section within the application configuration file</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.REQ_TOPIC_HOST_INFO">
+<code class="descname">REQ_TOPIC_HOST_INFO</code><em class="property"> = '/opendxl-urlvoid/service/urlvapi/host/info'</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.REQ_TOPIC_HOST_INFO" title="Permalink to this definition">¶</a></dt>
+<dd><p>The &#8220;host info&#8221; DXL request topic</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.REQ_TOPIC_HOST_RESCAN">
+<code class="descname">REQ_TOPIC_HOST_RESCAN</code><em class="property"> = '/opendxl-urlvoid/service/urlvapi/host/rescan'</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.REQ_TOPIC_HOST_RESCAN" title="Permalink to this definition">¶</a></dt>
+<dd><p>The &#8220;host rescan&#8221; DXL request topic</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.REQ_TOPIC_HOST_SCAN">
+<code class="descname">REQ_TOPIC_HOST_SCAN</code><em class="property"> = '/opendxl-urlvoid/service/urlvapi/host/scan'</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.REQ_TOPIC_HOST_SCAN" title="Permalink to this definition">¶</a></dt>
+<dd><p>The &#8220;host new scan&#8221; DXL request topic</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.REQ_TOPIC_STATS_REMAINED">
+<code class="descname">REQ_TOPIC_STATS_REMAINED</code><em class="property"> = '/opendxl-urlvoid/service/urlvapi/stats/remained'</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.REQ_TOPIC_STATS_REMAINED" title="Permalink to this definition">¶</a></dt>
+<dd><p>The &#8220;stats remained&#8221; DXL request topic</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.SERVICE_TYPE">
+<code class="descname">SERVICE_TYPE</code><em class="property"> = '/opendxl-urlvoid/service/urlvapi'</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.SERVICE_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd><p>The DXL service type for the URLVoid API</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.SERVICE_TYPE_LENGTH">
+<code class="descname">SERVICE_TYPE_LENGTH</code><em class="property"> = 32</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.SERVICE_TYPE_LENGTH" title="Permalink to this definition">¶</a></dt>
+<dd><p>The length of the DXL service type string</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.URL_VOID_API_URL_FORMAT">
+<code class="descname">URL_VOID_API_URL_FORMAT</code><em class="property"> = 'http://api.urlvoid.com/api1000/{0}/'</em><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.URL_VOID_API_URL_FORMAT" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL format for URLVoid API invocations</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.api_key">
+<code class="descname">api_key</code><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.api_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URLVoid API key</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.client">
+<code class="descname">client</code><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.client" title="Permalink to this definition">¶</a></dt>
+<dd><p>The DXL client used by the application to communicate with the DXL
+fabric</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.config">
+<code class="descname">config</code><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>The application configuration (as read from the &#8220;dxlurlvoidservice.config&#8221; file)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.on_dxl_connect">
+<code class="descname">on_dxl_connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.on_dxl_connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoked after the client associated with the application has connected
+to the DXL fabric.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.on_load_configuration">
+<code class="descname">on_load_configuration</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.on_load_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoked after the application-specific configuration has been loaded</p>
+<p>This callback provides the opportunity for the application to parse
+additional configuration properties.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> &#8211; The application configuration</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.on_register_services">
+<code class="descname">on_register_services</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.on_register_services" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoked when services should be registered with the application</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dxlurlvoidservice.app.UrlVoidApiService.on_run">
+<code class="descname">on_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dxlurlvoidservice.app.UrlVoidApiService.on_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoked when the application has started running.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dxlurlvoidservice.html"
+                        title="previous chapter">dxlurlvoidservice package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dxlurlvoidservice.requesthandlers.html"
+                        title="next chapter">dxlurlvoidservice.requesthandlers module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/dxlurlvoidservice.app.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dxlurlvoidservice.requesthandlers.html" title="dxlurlvoidservice.requesthandlers module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="dxlurlvoidservice.html" title="dxlurlvoidservice package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">URLVoid DXL Service 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="dxlurlvoidservice.html" >dxlurlvoidservice package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright Copyright 2017, McAfee LLC.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>

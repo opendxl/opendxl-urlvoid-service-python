@@ -1,0 +1,18 @@
+dxlurlvoidservice package
+=========================
+
+Submodules
+----------
+
+.. toctree::
+
+   dxlurlvoidservice.app
+   dxlurlvoidservice.requesthandlers
+
+Module contents
+---------------
+
+.. automodule:: dxlurlvoidservice
+    :members:
+    :undoc-members:
+    :show-inheritance:
