@@ -4,7 +4,7 @@
 
 ## Overview
 
-The URLVoid DXL Python service exposes access to the [URLVoid API](http://api.urlvoid.com/)
+The URLVoid DXL Python service exposes access to the [URLVoid API](http://www.urlvoid.com/api/)
 via the [Data Exchange Layer](http://www.mcafee.com/us/solutions/data-exchange-layer.aspx) (DXL) fabric.
 
 ## Documentation
