@@ -1,5 +1,5 @@
-dxlurlvoidservice.app module
-============================
+dxlurlvoidservice\.app module
+=============================
 
 .. automodule:: dxlurlvoidservice.app
     :members:
