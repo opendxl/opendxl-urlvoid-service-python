@@ -1,5 +1,5 @@
-dxlurlvoidservice\.requesthandlers module
-=========================================
+dxlurlvoidservice.requesthandlers module
+========================================
 
 .. automodule:: dxlurlvoidservice.requesthandlers
     :members:
