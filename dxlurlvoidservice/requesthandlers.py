@@ -92,5 +92,5 @@ class UrlVoidApiCallback(RequestCallback):
 
         except Exception as ex:
             logger.exception("Error handling request")
-            err_res = ErrorResponse(request, MessageUtils.encode(str(ex)))
+            err_res = ErrorResponse(request, error_message=MessageUtils.encode(str(ex)))
             self._app.client.send_response(err_res)
