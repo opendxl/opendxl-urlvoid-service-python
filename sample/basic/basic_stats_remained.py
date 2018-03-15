@@ -38,7 +38,8 @@ with DxlClient(config) as client:
         payload = MessageUtils.decode_payload(res)
         xml = xml.dom.minidom.parseString(payload)
         print("Response for URLVoid stats remained:")
-        print(xml.toprettyxml(indent='    ', newl='', encoding="UTF-8"))
+        print(xml.toprettyxml(
+            indent='    ', newl='', encoding="UTF-8").decode("UTF-8"))
     else:
         print("Error invoking service with topic '{0}': {1} ({2})".format(
             request_topic, res.error_message, res.error_code))
