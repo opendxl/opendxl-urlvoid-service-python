@@ -5,7 +5,6 @@ from dxlbootstrap.app import Application
 from dxlclient.service import ServiceRegistrationInfo
 from .requesthandlers import *
 
-
 # Configure local logger
 logger = logging.getLogger(__name__)
 
@@ -53,7 +52,8 @@ class UrlVoidApiService(Application):
     CMD_STATS_REMAINED = "stats/remained"
 
     #: The "stats remained" DXL request topic
-    REQ_TOPIC_STATS_REMAINED = "{0}/{1}".format(SERVICE_TYPE, CMD_STATS_REMAINED)
+    REQ_TOPIC_STATS_REMAINED = "{0}/{1}".format(SERVICE_TYPE,
+                                                CMD_STATS_REMAINED)
 
     def __init__(self, config_dir):
         """
@@ -62,7 +62,8 @@ class UrlVoidApiService(Application):
         :param config_dir: The location of the configuration files for the
             application
         """
-        super(UrlVoidApiService, self).__init__(config_dir, "dxlurlvoidservice.config")
+        super(UrlVoidApiService, self).__init__(config_dir,
+                                                "dxlurlvoidservice.config")
         self._api_key = None
 
     @property
@@ -106,12 +107,14 @@ class UrlVoidApiService(Application):
 
         # API Key
         try:
-            self._api_key = config.get(self.GENERAL_CONFIG_SECTION, self.GENERAL_API_KEY_CONFIG_PROP)
+            self._api_key = config.get(self.GENERAL_CONFIG_SECTION,
+                                       self.GENERAL_API_KEY_CONFIG_PROP)
         except Exception:
             pass
         if not self._api_key:
-            raise Exception("URLVoid API Key not found in configuration file: {0}"
-                            .format(self._app_config_path))
+            raise Exception(
+                "URLVoid API Key not found in configuration file: {0}"
+                .format(self._app_config_path))
 
     def on_dxl_connect(self):
         """
@@ -119,32 +122,37 @@ class UrlVoidApiService(Application):
         to the DXL fabric.
         """
         logger.info("On 'DXL connect' callback.")
-    
+
     def on_register_services(self):
         """
         Invoked when services should be registered with the application
         """
         # Register service 'urlvapi'
-        logger.info("Registering service: {0}".format("urlvoidservice"))
+        logger.info("Registering service: %s", "urlvoidservice")
         service = ServiceRegistrationInfo(self._dxl_client, self.SERVICE_TYPE)
 
-        logger.info("Registering request callback: {0}".format(self.CMD_HOST_INFO))
+        logger.info(
+            "Registering request callback: %s", self.CMD_HOST_INFO)
         self.add_request_callback(
-                service, self.REQ_TOPIC_HOST_INFO,
-                UrlVoidApiCallback(self, [UrlVoidApiCallback.PARAM_HOST]), False)
+            service, self.REQ_TOPIC_HOST_INFO,
+            UrlVoidApiCallback(self, [UrlVoidApiCallback.PARAM_HOST]), False)
 
-        logger.info("Registering request callback: {0}".format(self.CMD_HOST_RESCAN))
+        logger.info(
+            "Registering request callback: %s", self.CMD_HOST_RESCAN)
         self.add_request_callback(
-                service, self.REQ_TOPIC_HOST_RESCAN,
-                UrlVoidApiCallback(self, [UrlVoidApiCallback.PARAM_HOST]), False)
+            service, self.REQ_TOPIC_HOST_RESCAN,
+            UrlVoidApiCallback(self, [UrlVoidApiCallback.PARAM_HOST]), False)
 
-        logger.info("Registering request callback: {0}".format(self.CMD_HOST_SCAN))
+        logger.info(
+            "Registering request callback: %s", self.CMD_HOST_SCAN)
         self.add_request_callback(
-                service, self.REQ_TOPIC_HOST_SCAN,
-                UrlVoidApiCallback(self, [UrlVoidApiCallback.PARAM_HOST]), False)
+            service, self.REQ_TOPIC_HOST_SCAN,
+            UrlVoidApiCallback(self, [UrlVoidApiCallback.PARAM_HOST]), False)
 
-        logger.info("Registering request callback: {0}".format(self.CMD_STATS_REMAINED))
+        logger.info(
+            "Registering request callback: %s", self.CMD_STATS_REMAINED)
         self.add_request_callback(
-                service, self.REQ_TOPIC_STATS_REMAINED, UrlVoidApiCallback(self), False)
+            service, self.REQ_TOPIC_STATS_REMAINED, UrlVoidApiCallback(self),
+            False)
 
         self.register_service(service)
