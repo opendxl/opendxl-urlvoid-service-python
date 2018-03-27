@@ -63,3 +63,4 @@ autoclass_content = 'both'
 
 modindex_common_prefix = ['dxlurlvoidservice.']
 
+html_use_smartypants = False
