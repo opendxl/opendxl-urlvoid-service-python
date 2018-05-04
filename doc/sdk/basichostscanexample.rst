@@ -91,11 +91,12 @@ The majority of the sample code is shown below:
             if res.message_type != Message.MESSAGE_TYPE_ERROR:
                 payload = MessageUtils.decode_payload(res)
                 xml = xml.dom.minidom.parseString(payload)
-                print "Response for URLVoid host scan:"
-                print xml.toprettyxml(indent='    ', newl='', encoding="UTF-8")
+                print("Response for URLVoid host scan:")
+                print(xml.toprettyxml(
+                    indent='    ', newl='', encoding="UTF-8").decode("UTF-8"))
             else:
-                print "Error invoking service with topic '{0}': {1} ({2})".format(
-                    request_topic, res.error_message, res.error_code)
+                print("Error invoking service with topic '{0}': {1} ({2})".format(
+                    request_topic, res.error_message, res.error_code))
 
 
 After connecting to the DXL fabric, a `request message` is created with a topic that targets the "host scan" method

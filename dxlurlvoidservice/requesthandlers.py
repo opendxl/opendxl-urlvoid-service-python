@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import logging
 import requests
 
@@ -48,8 +49,9 @@ class UrlVoidApiCallback(RequestCallback):
         :param request: The request message
         """
         # Handle request
-        logger.info("Request received on topic: '{0}' with payload: '{1}'".format(
-            request.destination_topic, MessageUtils.decode_payload(request)))
+        logger.info("Request received on topic: '%s' with payload: '%s'",
+                    request.destination_topic,
+                    MessageUtils.decode_payload(request))
 
         try:
             # API URL

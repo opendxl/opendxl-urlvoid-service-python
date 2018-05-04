@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 import xml.dom.minidom
@@ -36,8 +38,9 @@ with DxlClient(config) as client:
     if res.message_type != Message.MESSAGE_TYPE_ERROR:
         payload = MessageUtils.decode_payload(res)
         xml = xml.dom.minidom.parseString(payload)
-        print "Response for URLVoid host rescan:"
-        print xml.toprettyxml(indent='    ', newl='', encoding="UTF-8")
+        print("Response for URLVoid host rescan:")
+        print(xml.toprettyxml(
+            indent='    ', newl='', encoding="UTF-8").decode("UTF-8"))
     else:
-        print "Error invoking service with topic '{0}': {1} ({2})".format(
-            request_topic, res.error_message, res.error_code)
+        print("Error invoking service with topic '{0}': {1} ({2})".format(
+            request_topic, res.error_message, res.error_code))
