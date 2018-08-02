@@ -31,7 +31,7 @@ class LintCommand(Command):
     def run(self):
         self.announce("Running pylint for library source files and tests",
                       level=distutils.log.INFO)
-        subprocess.check_call(["pylint", "dxlurlvoidservice"] +
+        subprocess.check_call(["pylint", "dxlurlvoidservice", "tests"] +
                               glob.glob("*.py"))
         self.announce("Running pylint for samples", level=distutils.log.INFO)
         subprocess.check_call(["pylint"] + glob.glob("sample/*.py") +
@@ -52,8 +52,9 @@ class CiCommand(Command):
         pass
     def run(self):
         self.run_command("lint")
+        self.run_command("test")
 
-TEST_REQUIREMENTS = ["pylint"]
+TEST_REQUIREMENTS = ["nose", "pylint", "dicttoxml"]
 
 DEV_REQUIREMENTS = TEST_REQUIREMENTS + ["sphinx"]
 
@@ -78,6 +79,8 @@ setup(
         "test": TEST_REQUIREMENTS
     },
 
+    test_suite="nose.collector",
+
     # Package author details:
     author="McAfee LLC",
 
@@ -99,7 +102,7 @@ setup(
         "dxlurlvoidservice._config.app" : ['*']},
 
     # Details
-    url="http://www.mcafee.com",
+    url="http://www.mcafee.com/",
 
     description="URLVoid API DXL service library",
 
