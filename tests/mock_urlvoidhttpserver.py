@@ -13,7 +13,7 @@ from threading import Thread
 import requests
 
 from dxlbootstrap.util import MessageUtils
-from dicttoxml import dicttoxml #pylint: disable=import-error
+from dicttoxml import dicttoxml
 from dxlurlvoidservice import UrlVoidApiService
 from dxlurlvoidservice.requesthandlers import UrlVoidApiCallback
 from tests.test_value_constants import *
@@ -34,7 +34,6 @@ def get_free_port():
 
 class MockVtServerRequestHandler(SimpleHTTPRequestHandler):
 
-    #pylint: disable=line-too-long
     BASE_PATTERN = "/api1000/" + SAMPLE_API_KEY + "/{0}"
 
     HOST_PATTERN = BASE_PATTERN.format(
@@ -125,10 +124,10 @@ class MockVtServerRequestHandler(SimpleHTTPRequestHandler):
 class MockServerRunner(object):
 
     def __init__(self):
-        self.server_name = "mockserver"
         self.mock_server_port = 0
         self.mock_server = None
         self.mock_server_address = ""
+        self.mock_server_thread = None
 
     def __enter__(self):
         self.mock_server_address, self.mock_server_port = get_free_port()
@@ -137,12 +136,13 @@ class MockServerRunner(object):
             MockVtServerRequestHandler
         )
 
-        mock_server_thread = Thread(target=self.mock_server.serve_forever)
-        mock_server_thread.setDaemon(True)
-        mock_server_thread.start()
+        self.mock_server_thread = Thread(target=self.mock_server.serve_forever)
+        self.mock_server_thread.setDaemon(True)
+        self.mock_server_thread.start()
 
         return self
 
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.mock_server.shutdown()
+        self.mock_server_thread.join()

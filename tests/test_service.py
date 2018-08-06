@@ -46,26 +46,23 @@ class TestConfiguration(BaseClientTest):
                 config_file_name=URLVOID_CONFIG_FILENAME
             )
 
-            with BaseClientTest.create_client(max_retries=0) as dxl_client:
-                dxl_client.connect()
+            urlvoid_service = UrlVoidApiService(TEST_FOLDER)
 
-                vt_service = UrlVoidApiService(TEST_FOLDER)
-                vt_service._dxl_client = dxl_client
+            urlvoid_service.run()
 
-                vt_service._load_configuration()
-                vt_service.on_register_services()
+            self.assertTrue(len(urlvoid_service._services) == 1)
 
-                self.assertTrue(len(vt_service._services) > 0)
+            expected_topics = (
+                UrlVoidApiService.REQ_TOPIC_HOST_INFO,
+                UrlVoidApiService.REQ_TOPIC_HOST_RESCAN,
+                UrlVoidApiService.REQ_TOPIC_HOST_SCAN,
+                UrlVoidApiService.REQ_TOPIC_STATS_REMAINED
+            )
 
-                expected_vt_topics = {
-                    UrlVoidApiService.REQ_TOPIC_HOST_INFO,
-                    UrlVoidApiService.REQ_TOPIC_HOST_RESCAN,
-                    UrlVoidApiService.REQ_TOPIC_HOST_SCAN,
-                    UrlVoidApiService.REQ_TOPIC_STATS_REMAINED,
-                }
-
-                for expected_topic in expected_vt_topics:
-                    self.assertIn(expected_topic, vt_service._services[0].topics)
+            self.assertEqual(
+                expected_topics,
+                urlvoid_service._services[0].topics
+            )
 
 
 class TestVtRequestCallback(BaseClientTest):
@@ -119,138 +116,118 @@ class TestVtRequestCallback(BaseClientTest):
         )
 
     def test_callback_hostinfo(self):
-        with BaseClientTest.create_client(max_retries=0) as dxl_client:
-            dxl_client.connect()
+        with MockServerRunner() as server_runner:
+            urlvoid_service = UrlVoidApiService(TEST_FOLDER)
 
-            with MockServerRunner() as server_runner:
-                vt_service = UrlVoidApiService(TEST_FOLDER)
-                vt_service._dxl_client = dxl_client
+            urlvoid_service.URL_VOID_API_URL_FORMAT = "http://127.0.0.1:" \
+                                          + str(server_runner.mock_server_port) \
+                                          + "/api1000/{0}/"
+            urlvoid_service.run()
 
-                vt_service.URL_VOID_API_URL_FORMAT = "http://127.0.0.1:" \
-                                              + str(server_runner.mock_server_port) \
-                                              + "/api1000/{0}/"
-                vt_service._load_configuration()
-                vt_service.on_register_services()
+            request_topic = UrlVoidApiService.REQ_TOPIC_HOST_INFO
+            req = Request(request_topic)
+            MessageUtils.dict_to_json_payload(
+                req,
+                {
+                    UrlVoidApiCallback.PARAM_HOST: SAMPLE_HOST
+                }
+            )
 
-                request_topic = UrlVoidApiService.REQ_TOPIC_HOST_INFO
-                req = Request(request_topic)
-                MessageUtils.dict_to_json_payload(
-                    req,
-                    {
-                        UrlVoidApiCallback.PARAM_HOST: SAMPLE_HOST
-                    }
-                )
+            res = urlvoid_service._dxl_client.sync_request(req, timeout=30)
 
-                res = dxl_client.sync_request(req, timeout=30)
-
-                self.assertEqual(
-                    dicttoxml(
-                        SAMPLE_HOST_INFO,
-                        custom_root=XML_ROOT_RESPONSE,
-                        attr_type=False
-                    ),
-                    res.payload
-                )
+            self.assertEqual(
+                dicttoxml(
+                    SAMPLE_HOST_INFO,
+                    custom_root=XML_ROOT_RESPONSE,
+                    attr_type=False
+                ),
+                res.payload
+            )
 
 
     def test_callback_hostrescan(self):
-        with BaseClientTest.create_client(max_retries=0) as dxl_client:
-            dxl_client.connect()
+        with MockServerRunner() as server_runner:
+            urlvoid_service = UrlVoidApiService(TEST_FOLDER)
 
-            with MockServerRunner() as server_runner:
-                vt_service = UrlVoidApiService(TEST_FOLDER)
-                vt_service._dxl_client = dxl_client
+            urlvoid_service.URL_VOID_API_URL_FORMAT = "http://127.0.0.1:" \
+                                          + str(server_runner.mock_server_port) \
+                                          + "/api1000/{0}/"
+            urlvoid_service.run()
 
-                vt_service.URL_VOID_API_URL_FORMAT = "http://127.0.0.1:" \
-                                              + str(server_runner.mock_server_port) \
-                                              + "/api1000/{0}/"
-                vt_service._load_configuration()
-                vt_service.on_register_services()
+            request_topic = UrlVoidApiService.REQ_TOPIC_HOST_RESCAN
+            req = Request(request_topic)
+            MessageUtils.dict_to_json_payload(
+                req,
+                {
+                    UrlVoidApiCallback.PARAM_HOST: SAMPLE_HOST
+                }
+            )
 
-                request_topic = UrlVoidApiService.REQ_TOPIC_HOST_RESCAN
-                req = Request(request_topic)
-                MessageUtils.dict_to_json_payload(
-                    req,
-                    {
-                        UrlVoidApiCallback.PARAM_HOST: SAMPLE_HOST
-                    }
-                )
+            res = urlvoid_service._dxl_client.sync_request(req, timeout=30)
 
-                res = dxl_client.sync_request(req, timeout=30)
-
-                self.assertEqual(
-                    dicttoxml(
-                        SAMPLE_HOST_RESCAN,
-                        custom_root=XML_ROOT_RESPONSE,
-                        attr_type=False
-                    ),
-                    res.payload
-                )
+            self.assertEqual(
+                dicttoxml(
+                    SAMPLE_HOST_RESCAN,
+                    custom_root=XML_ROOT_RESPONSE,
+                    attr_type=False
+                ),
+                res.payload
+            )
 
     def test_callback_hostscan(self):
-        with BaseClientTest.create_client(max_retries=0) as dxl_client:
-            dxl_client.connect()
+        with MockServerRunner() as server_runner:
+            urlvoid_service = UrlVoidApiService(TEST_FOLDER)
 
-            with MockServerRunner() as server_runner:
-                vt_service = UrlVoidApiService(TEST_FOLDER)
-                vt_service._dxl_client = dxl_client
+            urlvoid_service.URL_VOID_API_URL_FORMAT = "http://127.0.0.1:" \
+                                          + str(server_runner.mock_server_port) \
+                                          + "/api1000/{0}/"
+            urlvoid_service.run()
 
-                vt_service.URL_VOID_API_URL_FORMAT = "http://127.0.0.1:" \
-                                              + str(server_runner.mock_server_port) \
-                                              + "/api1000/{0}/"
-                vt_service._load_configuration()
-                vt_service.on_register_services()
+            request_topic = UrlVoidApiService.REQ_TOPIC_HOST_SCAN
+            req = Request(request_topic)
+            MessageUtils.dict_to_json_payload(
+                req,
+                {
+                    UrlVoidApiCallback.PARAM_HOST: SAMPLE_HOST
+                }
+            )
 
-                request_topic = UrlVoidApiService.REQ_TOPIC_HOST_SCAN
-                req = Request(request_topic)
-                MessageUtils.dict_to_json_payload(
-                    req,
-                    {
-                        UrlVoidApiCallback.PARAM_HOST: SAMPLE_HOST
-                    }
-                )
+            res = urlvoid_service._dxl_client.sync_request(req, timeout=30)
 
-                res = dxl_client.sync_request(req, timeout=30)
-
-                self.assertEqual(
-                    dicttoxml(
-                        SAMPLE_HOST_SCAN,
-                        custom_root=XML_ROOT_RESPONSE,
-                        attr_type=False
-                    ),
-                    res.payload
-                )
+            self.assertEqual(
+                dicttoxml(
+                    SAMPLE_HOST_SCAN,
+                    custom_root=XML_ROOT_RESPONSE,
+                    attr_type=False
+                ),
+                res.payload
+            )
 
     def test_callback_statsremained(self):
-        with BaseClientTest.create_client(max_retries=0) as dxl_client:
-            dxl_client.connect()
+        with MockServerRunner() as server_runner:
+            urlvoid_service = UrlVoidApiService(TEST_FOLDER)
 
-            with MockServerRunner() as server_runner:
-                vt_service = UrlVoidApiService(TEST_FOLDER)
-                vt_service._dxl_client = dxl_client
+            urlvoid_service.URL_VOID_API_URL_FORMAT = "http://127.0.0.1:" \
+                                          + str(server_runner.mock_server_port) \
+                                          + "/api1000/{0}/"
+            urlvoid_service.run()
 
-                vt_service.URL_VOID_API_URL_FORMAT = "http://127.0.0.1:" \
-                                              + str(server_runner.mock_server_port) \
-                                              + "/api1000/{0}/"
-                vt_service._load_configuration()
-                vt_service.on_register_services()
+            request_topic = UrlVoidApiService.REQ_TOPIC_STATS_REMAINED
+            req = Request(request_topic)
+            MessageUtils.dict_to_json_payload(
+                req,
+                {
+                    UrlVoidApiCallback.PARAM_HOST: SAMPLE_HOST
+                }
+            )
 
-                request_topic = UrlVoidApiService.REQ_TOPIC_STATS_REMAINED
-                req = Request(request_topic)
-                MessageUtils.dict_to_json_payload(
-                    req,
-                    {
-                        UrlVoidApiCallback.PARAM_HOST: SAMPLE_HOST
-                    }
-                )
+            res = urlvoid_service._dxl_client.sync_request(req, timeout=30)
 
-                res = dxl_client.sync_request(req, timeout=30)
-
-                self.assertEqual(
-                    dicttoxml(
-                        SAMPLE_REMAINED_OUTPUT,
-                        custom_root=XML_ROOT_RESPONSE,
-                        attr_type=False
-                    ),
-                    res.payload
-                )
+            self.assertEqual(
+                dicttoxml(
+                    SAMPLE_REMAINED_OUTPUT,
+                    custom_root=XML_ROOT_RESPONSE,
+                    attr_type=False
+                ),
+                res.payload
+            )
