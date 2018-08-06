@@ -30,7 +30,7 @@ class TestSamples(BaseClientTest):
 
         with MockServerRunner() as mock_server:
 
-            urlvoid_service = configure_service(mock_server.mock_server_port)
+            configure_service(mock_server.mock_server_port)
 
             mock_print = self.run_sample(sample_filename)
 
