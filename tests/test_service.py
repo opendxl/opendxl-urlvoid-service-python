@@ -1,7 +1,7 @@
 import sys
 from configparser import ConfigParser
 from dxlbootstrap.util import MessageUtils
-from dxlclient import Request
+from dxlclient import Request, Response
 from dicttoxml import dicttoxml #pylint: disable=import-error
 from dxlurlvoidservice import UrlVoidApiService
 from dxlurlvoidservice.requesthandlers import UrlVoidApiCallback
@@ -121,18 +121,12 @@ class TestVtRequestCallback(BaseClientTest):
 
     def test_callback_hostinfo(self):
         with MockServerRunner() as server_runner:
-            with self.create_client(max_retries=0) as dxl_client:
-                dxl_client.connect()
-
-                urlvoid_service = UrlVoidApiService(TEST_FOLDER)
-                urlvoid_service._dxl_client = dxl_client
-
+            with UrlVoidApiService(TEST_FOLDER) as urlvoid_service:
                 urlvoid_service.URL_VOID_API_URL_FORMAT = "http://127.0.0.1:" \
                                               + str(server_runner.mock_server_port) \
                                               + "/api1000/{0}/"
 
-                urlvoid_service._load_configuration()
-                urlvoid_service.on_register_services()
+                urlvoid_service.run()
 
                 request_topic = UrlVoidApiService.REQ_TOPIC_HOST_INFO
                 req = Request(request_topic)
@@ -143,7 +137,7 @@ class TestVtRequestCallback(BaseClientTest):
                     }
                 )
 
-                res = dxl_client.sync_request(req, timeout=30)
+                res = urlvoid_service._dxl_client.sync_request(req, timeout=30)
 
                 self.assertEqual(
                     dicttoxml(
@@ -157,18 +151,13 @@ class TestVtRequestCallback(BaseClientTest):
 
     def test_callback_hostrescan(self):
         with MockServerRunner() as server_runner:
-            with self.create_client(max_retries=0) as dxl_client:
-                dxl_client.connect()
-
-                urlvoid_service = UrlVoidApiService(TEST_FOLDER)
-                urlvoid_service._dxl_client = dxl_client
+            with UrlVoidApiService(TEST_FOLDER) as urlvoid_service:
 
                 urlvoid_service.URL_VOID_API_URL_FORMAT = "http://127.0.0.1:" \
                                               + str(server_runner.mock_server_port) \
                                               + "/api1000/{0}/"
 
-                urlvoid_service._load_configuration()
-                urlvoid_service.on_register_services()
+                urlvoid_service.run()
 
                 request_topic = UrlVoidApiService.REQ_TOPIC_HOST_RESCAN
                 req = Request(request_topic)
@@ -179,7 +168,7 @@ class TestVtRequestCallback(BaseClientTest):
                     }
                 )
 
-                res = dxl_client.sync_request(req, timeout=30)
+                res = urlvoid_service._dxl_client.sync_request(req, timeout=30)
 
                 self.assertEqual(
                     dicttoxml(
@@ -192,18 +181,13 @@ class TestVtRequestCallback(BaseClientTest):
 
     def test_callback_hostscan(self):
         with MockServerRunner() as server_runner:
-            with self.create_client(max_retries=0) as dxl_client:
-                dxl_client.connect()
-
-                urlvoid_service = UrlVoidApiService(TEST_FOLDER)
-                urlvoid_service._dxl_client = dxl_client
+            with UrlVoidApiService(TEST_FOLDER) as urlvoid_service:
 
                 urlvoid_service.URL_VOID_API_URL_FORMAT = "http://127.0.0.1:" \
                                               + str(server_runner.mock_server_port) \
                                               + "/api1000/{0}/"
 
-                urlvoid_service._load_configuration()
-                urlvoid_service.on_register_services()
+                urlvoid_service.run()
 
                 request_topic = UrlVoidApiService.REQ_TOPIC_HOST_SCAN
                 req = Request(request_topic)
@@ -214,7 +198,7 @@ class TestVtRequestCallback(BaseClientTest):
                     }
                 )
 
-                res = dxl_client.sync_request(req, timeout=30)
+                res = urlvoid_service._dxl_client.sync_request(req, timeout=30)
 
                 self.assertEqual(
                     dicttoxml(
@@ -227,18 +211,13 @@ class TestVtRequestCallback(BaseClientTest):
 
     def test_callback_statsremained(self):
         with MockServerRunner() as server_runner:
-            with self.create_client(max_retries=0) as dxl_client:
-                dxl_client.connect()
-
-                urlvoid_service = UrlVoidApiService(TEST_FOLDER)
-                urlvoid_service._dxl_client = dxl_client
+            with UrlVoidApiService(TEST_FOLDER) as urlvoid_service:
 
                 urlvoid_service.URL_VOID_API_URL_FORMAT = "http://127.0.0.1:" \
                                               + str(server_runner.mock_server_port) \
                                               + "/api1000/{0}/"
 
-                urlvoid_service._load_configuration()
-                urlvoid_service.on_register_services()
+                urlvoid_service.run()
 
                 request_topic = UrlVoidApiService.REQ_TOPIC_STATS_REMAINED
                 req = Request(request_topic)
@@ -249,7 +228,7 @@ class TestVtRequestCallback(BaseClientTest):
                     }
                 )
 
-                res = dxl_client.sync_request(req, timeout=30)
+                res = urlvoid_service._dxl_client.sync_request(req, timeout=30)
 
                 self.assertEqual(
                     dicttoxml(
