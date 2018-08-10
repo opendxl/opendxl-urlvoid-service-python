@@ -1,7 +1,7 @@
 import sys
 from configparser import ConfigParser
 from dxlbootstrap.util import MessageUtils
-from dxlclient import Request, Response
+from dxlclient import Request
 from dicttoxml import dicttoxml #pylint: disable=import-error
 from dxlurlvoidservice import UrlVoidApiService
 from dxlurlvoidservice.requesthandlers import UrlVoidApiCallback
