@@ -3,3 +3,7 @@ dist/
 *.pyc
 build/
 dxlurlvoidservice.egg-info/
+*.csr
+*.key
+*.crt
+tests/*.config
