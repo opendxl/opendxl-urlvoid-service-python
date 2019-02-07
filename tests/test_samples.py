@@ -28,8 +28,8 @@ class TestSamples(BaseClientTest):
         # Modify sample file to include necessary sample data
         sample_filename = self.BASIC_FOLDER + "/basic_host_info.py"
 
-        with MockServerRunner() as mock_server:
-            urlvoid_service = configure_service(mock_server.mock_server_port)
+        with MockServerRunner() as mock_server, \
+            configure_service(mock_server.mock_server_port):
 
             mock_print = self.run_sample(sample_filename)
 
@@ -42,15 +42,13 @@ class TestSamples(BaseClientTest):
                 StringContains(str(SAMPLE_HOST_INFO["page_load"]))
             )
 
-            urlvoid_service.destroy()
-
 
     def test_hostrescan_example(self):
         # Modify sample file to include necessary sample data
         sample_filename = self.BASIC_FOLDER + "/basic_host_rescan.py"
 
-        with MockServerRunner() as mock_server:
-            urlvoid_service = configure_service(mock_server.mock_server_port)
+        with MockServerRunner() as mock_server, \
+            configure_service(mock_server.mock_server_port):
 
             mock_print = self.run_sample(sample_filename)
 
@@ -63,15 +61,13 @@ class TestSamples(BaseClientTest):
                 StringContains(str(SAMPLE_HOST_RESCAN["page_load"]))
             )
 
-            urlvoid_service.destroy()
-
 
     def test_hostscan_example(self):
         # Modify sample file to include necessary sample data
         sample_filename = self.BASIC_FOLDER + "/basic_host_scan.py"
 
-        with MockServerRunner() as mock_server:
-            urlvoid_service = configure_service(mock_server.mock_server_port)
+        with MockServerRunner() as mock_server, \
+            configure_service(mock_server.mock_server_port):
 
             mock_print = self.run_sample(sample_filename)
 
@@ -84,15 +80,13 @@ class TestSamples(BaseClientTest):
                 StringContains(str(SAMPLE_HOST_SCAN["page_load"]))
             )
 
-            urlvoid_service.destroy()
-
 
     def test_statsremained_example(self):
         # Modify sample file to include necessary sample data
         sample_filename = self.BASIC_FOLDER + "/basic_stats_remained.py"
 
-        with MockServerRunner() as mock_server:
-            urlvoid_service = configure_service(mock_server.mock_server_port)
+        with MockServerRunner() as mock_server, \
+            configure_service(mock_server.mock_server_port):
 
             mock_print = self.run_sample(sample_filename)
 
@@ -104,5 +98,3 @@ class TestSamples(BaseClientTest):
             mock_print.assert_any_call(
                 StringContains(str(SAMPLE_REMAINED_OUTPUT["page_load"]))
             )
-
-            urlvoid_service.destroy()

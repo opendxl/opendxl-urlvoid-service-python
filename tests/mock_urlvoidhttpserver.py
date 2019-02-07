@@ -1,12 +1,12 @@
 import socket
 import re
+import time
 
 try: #Python 3
-    from http.server import SimpleHTTPRequestHandler
-    from socketserver import TCPServer
+    from http.server import HTTPServer, SimpleHTTPRequestHandler
 except ImportError: #Python 2.7
-    from SimpleHTTPServer import  SimpleHTTPRequestHandler
-    from SocketServer import TCPServer
+    from BaseHTTPServer import HTTPServer
+    from SimpleHTTPServer import SimpleHTTPRequestHandler
 
 from threading import Thread
 
@@ -33,6 +33,8 @@ def get_free_port():
 
 
 class MockVtServerRequestHandler(SimpleHTTPRequestHandler):
+
+    HEALTH_CHECK_PATH = "/healthcheck"
 
     BASE_PATTERN = "/api1000/" + SAMPLE_API_KEY + "/{0}"
 
@@ -61,7 +63,9 @@ class MockVtServerRequestHandler(SimpleHTTPRequestHandler):
 
         response_code = requests.codes.ok #pylint: disable=no-member
 
-        if re.search(SAMPLE_API_KEY, self.path):
+        if self.path == self.HEALTH_CHECK_PATH:
+            response_content = "".encode()
+        elif re.search(SAMPLE_API_KEY, self.path):
             if re.search(self.HOST_RESCAN_PATTERN, self.path):
                 response_content = self.host_rescan_cmd()
 
@@ -81,7 +85,7 @@ class MockVtServerRequestHandler(SimpleHTTPRequestHandler):
             else:
                 response_content = self.unknown_call(self.path)
         else:
-            response_content = "Test Failure Message - API Key not found"
+            response_content = "Test Failure Message - API Key not found".encode()
 
         self.send_response(response_code, response_content)
 
@@ -123,6 +127,9 @@ class MockVtServerRequestHandler(SimpleHTTPRequestHandler):
 
 class MockServerRunner(object):
 
+    SERVER_HOST = "localhost"
+    SERVING_TIMEOUT = 60
+
     def __init__(self):
         self.mock_server_port = 0
         self.mock_server = None
@@ -131,8 +138,8 @@ class MockServerRunner(object):
 
     def __enter__(self):
         self.mock_server_address, self.mock_server_port = get_free_port()
-        self.mock_server = TCPServer(
-            ('localhost', self.mock_server_port),
+        self.mock_server = HTTPServer(
+            (self.SERVER_HOST, self.mock_server_port),
             MockVtServerRequestHandler
         )
 
@@ -140,9 +147,23 @@ class MockServerRunner(object):
         self.mock_server_thread.setDaemon(True)
         self.mock_server_thread.start()
 
+        serving_wait_end = time.time() + self.SERVING_TIMEOUT
+        serving = False
+        while not serving and time.time() < serving_wait_end:
+            if requests.get("http://{}:{}{}".format(
+                    self.SERVER_HOST,
+                    self.mock_server_port,
+                    MockVtServerRequestHandler.HEALTH_CHECK_PATH)).status_code == 200:
+                serving = True
+
+        if not serving:
+            raise Exception(
+                "Timed out waiting for mock server to start serving requests")
+
         return self
 
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.mock_server.shutdown()
         self.mock_server_thread.join()
+        self.mock_server.server_close()
