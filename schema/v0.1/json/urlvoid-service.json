@@ -1,0 +1,169 @@
+{
+  "openDxlApi": "0.1",
+  "info": {
+    "title": "URLVoid DXL Service",
+    "version": "0.1.0",
+    "description": "The URLVoid DXL Python service exposes access to the <a href='http://www.urlvoid.com/api/'>URLVoid API</a> via the <a href='http://www.mcafee.com/us/solutions/data-exchange-layer.aspx'>Data Exchange Layer</a> (DXL) fabric.",
+    "contact": {
+      "name": "OpenDXL",
+      "url": "https://www.opendxl.com"
+    }
+  },
+
+  "solutions": {
+    "URLVoid DXL Service": {
+      "info": {
+        "title": "URLVoid DXL Service",
+        "version": "0.2.0",
+        "description": "The URLVoid DXL Service."
+      },
+      "externalDocs": {
+        "description": "URLVoid API Reference",
+        "url": "https://www.urlvoid.com/api/"
+      },
+      "services": [
+        { "$ref": "#/services/URLVoid DXL Service" }
+      ],
+      "events": []
+    }
+  },
+
+
+  "services": {
+    "URLVoid DXL Service": {
+      "info": {
+        "title": "URLVoid DXL Service",
+        "version": "0.2.0",
+        "description": "The URLVoid DXL Python service exposes access to the <a href='http://www.urlvoid.com/api/'>URLVoid API</a> via the <a href='http://www.mcafee.com/us/solutions/data-exchange-layer.aspx'>Data Exchange Layer</a> (DXL) fabric."
+      },
+      "externalDocs": {
+        "description": "URLVoid DXL Python Service (GitHub)",
+        "url": "https://github.com/opendxl/opendxl-urlvoid-service-python"
+      },
+      "requests": [
+        { "$ref": "#/requests/~1opendxl-urlvoid~1service~1urlvapi~1host~1info" },
+        { "$ref": "#/requests/~1opendxl-urlvoid~1service~1urlvapi~1host~1rescan" },
+        { "$ref": "#/requests/~1opendxl-urlvoid~1service~1urlvapi~1host~1scan" },
+        { "$ref": "#/requests/~1opendxl-urlvoid~1service~1urlvapi~1stats~1remained" }
+      ]
+    }
+  },
+
+
+  "events":{},
+
+
+  "requests": {
+    "/opendxl-urlvoid/service/urlvapi/host/info": {
+      "description": "Invokes a URLVoid 'host info' command and returns the results.",
+      "payload": {
+        "properties": {
+          "host": {
+            "description": "Hostname to target for the information request.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "host"
+        ],
+        "example": {
+          "host": "027.ru"
+        }
+      },
+      "response": {
+        "description": "The contents of the DXL response payload will match exactly to the response provided by the URLVoid. Please see the <a href='https://www.urlvoid.com/api/'>URLVoid API Reference</a> for further details."
+      },
+      "errorResponses": {
+        "0": {
+          "payload": {
+            "$ref": "#/definitions/Error Response Object"
+          }
+        }
+      }
+    },
+    "/opendxl-urlvoid/service/urlvapi/host/rescan": {
+      "description": "Invokes a URLVoid 'host rescan' command and returns the results.",
+      "payload": {
+        "properties": {
+          "host": {
+            "description": "Hostname to rescan.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "host"
+        ],
+        "example": {
+          "host": "027.ru"
+        }
+      },
+      "response": {
+        "description": "The contents of the DXL response payload will match exactly to the response provided by the URLVoid. Please see the <a href='https://www.urlvoid.com/api/'>URLVoid API Reference</a> for further details."
+      },
+      "errorResponses": {
+        "0": {
+          "payload": {
+            "$ref": "#/definitions/Error Response Object"
+          }
+        }
+      }
+    },
+    "/opendxl-urlvoid/service/urlvapi/host/scan": {
+      "description": "Invokes a URLVoid 'host scan' command and returns the results.",
+      "payload": {
+        "properties": {
+          "host": {
+            "description": "Hostname to scan.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "host"
+        ],
+        "example": {
+          "host": "027.ru"
+        }
+      },
+      "response": {
+        "description": "The contents of the DXL response payload will match exactly to the response provided by the URLVoid. Please see the <a href='https://www.urlvoid.com/api/'>URLVoid API Reference</a> for further details."
+      },
+      "errorResponses": {
+        "0": {
+          "payload": {
+            "$ref": "#/definitions/Error Response Object"
+          }
+        }
+      }
+    },
+    "/opendxl-urlvoid/service/urlvapi/stats/remained": {
+      "description": "Invokes a URLVoid 'stats remained' (remaining queries available for the API key used by this service) command and returns the results.",
+      "payload": {
+        "description": "An empty payload.",
+        "example": ""
+      },
+      "response": {
+        "description": "The contents of the DXL response payload will match exactly to the response provided by the URLVoid. Please see the <a href='https://www.urlvoid.com/api/'>URLVoid API Reference</a> for further details."
+      },
+      "errorResponses": {
+        "0": {
+          "payload": {
+            "$ref": "#/definitions/Error Response Object"
+          }
+        }
+      }
+    }
+  },
+
+
+  "definitions": {
+    "Error Response Object": {
+      "properties": {
+        "errorMessage": {
+          "description": "Message string containing service error information.",
+          "type": "string"
+        }
+      },
+      "example": "Page not found"
+    }
+  }
+}
