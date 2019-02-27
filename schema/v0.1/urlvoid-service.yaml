@@ -37,7 +37,6 @@ services:
         $ref: '#/requests/~1opendxl-urlvoid~1service~1urlvapi~1host~1scan'
       -
         $ref: '#/requests/~1opendxl-urlvoid~1service~1urlvapi~1stats~1remained'
-events: null
 requests:
   /opendxl-urlvoid/service/urlvapi/host/info:
     description: 'Invokes a URLVoid ''host info'' command and returns the results.'
